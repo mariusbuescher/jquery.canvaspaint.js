@@ -1,0 +1,82 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>canvas experiment</title>
+
+
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" title="style" charset="utf-8">
+</head>
+
+<body id="index">
+
+	<canvas width="800" height="600" id="drawarea">
+		Your browser does not support the HTML5 Canvas tag!
+	</canvas>
+	<p>
+		<a id="thick" href="#">Thick</a>
+		<a id="thin" href="#">Thin</a>
+	</p>
+	<p>
+		<a id="color-1" style="background-color:#000000; width: 1em; height: 1em; display: inline-block;"></a>
+		<a id="color-2" style="background-color:#FFFFFF; width: 1em; height: 1em; display: inline-block;"></a>
+		<a id="color-erase" style="background-color:transparent; width: 1em; height: 1em; display: inline-block;">Erase</a>
+	<p>
+		<a id="clear" href="#">Clear</a>
+	</p>
+	<p>
+		<a id="export" href="#">Export</a>
+		<a id="import" href="#">Import</a>
+	</p>
+
+	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/jquery.canvaspaint.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function () {
+		$('#drawarea').canvaspaint();
+		var imageData;
+
+		$('#thick').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('setLineWidth', 30);
+		});
+
+		$('#thin').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('setLineWidth', 15);
+		});
+
+		$('#color-1').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('setColor', '#000000');
+		});
+
+		$('#color-2').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('setColor', '#FFFFFF');
+		});
+
+		$('#color-erase').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('setEraser');
+		});
+
+		$('#clear').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('clear');
+		});
+
+		$('#export').click(function (e) {
+			e.preventDefault();
+			imageData = $('#drawarea').canvaspaint('getImageData');
+		});
+
+		$('#import').click(function (e) {
+			e.preventDefault();
+			imageData = $('#drawarea').canvaspaint('setImageData', imageData);
+		});
+	});
+	</script>
+
+</body>
+</html>
