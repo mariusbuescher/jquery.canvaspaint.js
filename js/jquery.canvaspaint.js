@@ -61,11 +61,13 @@ var Canvaspaint = function (element) {
 
 Canvaspaint.prototype = {
 
+  // property definition
   ctx : null,
   element : null,
   drawing : false,
   touchPositions : [],
 
+  // helper functions
   drawLine : function (start, end) {
     this.ctx.beginPath();
     this.ctx.moveTo(start.x, start.y);
@@ -74,6 +76,7 @@ Canvaspaint.prototype = {
     this.ctx.stroke();
   },
 
+  // event handlers
   onTouchstartEvent : function (el, e) {
     e.preventDefault();
     this.drawing = true;
@@ -176,6 +179,7 @@ Canvaspaint.prototype = {
     this.touchPositions = [];
   },
 
+  // setter and getter API methods
   setColor : function (color) {
     this.ctx.globalCompositeOperation = 'source-over';
     this.ctx.strokeStyle = color;
