@@ -83,8 +83,8 @@ Canvaspaint.prototype = {
     this.touchPositions = []
     for (var i = 0; i < e.touches.length; i++) {
       this.touchPositions.push({
-        x : e.touches.item(i).pageX,
-        y : e.touches.item(i).pageY
+        x : e.touches.item(i).clientX,
+        y : e.touches.item(i).clientY
       });
     }
   },
@@ -92,12 +92,12 @@ Canvaspaint.prototype = {
   onTouchendEvent : function (el, e) {
     for (var touch in this.touchPositions) {
       startPoint = {
-        x : this.touchPositions[touch].x - this.element.offsetLeft,
-        y : this.touchPositions[touch].y- this.element.offsetTop
+        x : this.touchPositions[touch].x - this.element.getBoundingClientRect().left,
+        y : this.touchPositions[touch].y- this.element.getBoundingClientRect().top
       }
       endPoint = {
-        x : this.touchPositions[touch].x - this.element.offsetLeft - 1,
-        y : this.touchPositions[touch].y - this.element.offsetTop
+        x : this.touchPositions[touch].x - this.element.getBoundingClientRect().left - 1,
+        y : this.touchPositions[touch].y - this.element.getBoundingClientRect().top
       }
       this.drawLine(startPoint, endPoint);
     }
@@ -115,14 +115,14 @@ Canvaspaint.prototype = {
     if (this.drawing === true) {
       var changed = false;
       for (var touch = 0; touch < this.touchPositions.length; touch++) {
-        if ((this.touchPositions[touch].x - e.touches.item(touch).pageX) !== 0 || (this.touchPositions[touch].y - e.touches.item(touch).pageY) !== 0) {
+        if ((this.touchPositions[touch].x - e.touches.item(touch).clientX) !== 0 || (this.touchPositions[touch].y - e.touches.item(touch).clientY) !== 0) {
           startPoint = {
-            x : this.touchPositions[touch].x - this.element.offsetLeft,
-            y : this.touchPositions[touch].y- this.element.offsetTop
+            x : this.touchPositions[touch].x - this.element.getBoundingClientRect().left,
+            y : this.touchPositions[touch].y- this.element.getBoundingClientRect().top
           }
           endPoint = {
-            x : e.touches.item(touch).pageX - this.element.offsetLeft,
-            y : e.touches.item(touch).pageY - this.element.offsetTop
+            x : e.touches.item(touch).clientX - this.element.getBoundingClientRect().left,
+            y : e.touches.item(touch).clientY - this.element.getBoundingClientRect().top
           }
           this.drawLine(startPoint, endPoint);
           changed = true;
@@ -132,8 +132,8 @@ Canvaspaint.prototype = {
         this.touchPositions = []
         for (var i = 0; i < e.touches.length; i++) {
           this.touchPositions.push({
-            x : e.touches.item(i).pageX,
-            y : e.touches.item(i).pageY
+            x : e.touches.item(i).clientX,
+            y : e.touches.item(i).clientY
           });
         }
       }
@@ -144,19 +144,19 @@ Canvaspaint.prototype = {
     this.drawing = true;
 
     this.touchPositions = [{
-      x : e.pageX,
-      y : e.pageY
+      x : e.clientX,
+      y : e.clientY
     }];
   },
 
   onMouseupEvent : function (el, e) {
     startPoint = {
-      x : this.touchPositions[0].x - this.element.offsetLeft,
-      y : this.touchPositions[0].y- this.element.offsetTop
+      x : this.touchPositions[0].x - this.element.getBoundingClientRect().left,
+      y : this.touchPositions[0].y- this.element.getBoundingClientRect().top
     }
     endPoint = {
-      x : this.touchPositions[0].x - this.element.offsetLeft - 1,
-      y : this.touchPositions[0].y - this.element.offsetTop
+      x : this.touchPositions[0].x - this.element.getBoundingClientRect().left - 1,
+      y : this.touchPositions[0].y - this.element.getBoundingClientRect().top
     }
     this.drawLine(startPoint, endPoint);
     this.drawing = false;
@@ -165,19 +165,19 @@ Canvaspaint.prototype = {
 
   onMousemoveEvent : function (el, e) {
     if (this.drawing === true) {
-      if ((this.touchPositions[0].x - e.pageX) !== 0 || (this.touchPositions[0].y - e.pageY) !== 0) {
+      if ((this.touchPositions[0].x - e.clientX) !== 0 || (this.touchPositions[0].y - e.clientY) !== 0) {
         startPoint = {
-          x : this.touchPositions[0].x - this.element.offsetLeft,
-          y : this.touchPositions[0].y- this.element.offsetTop
+          x : this.touchPositions[0].x - this.element.getBoundingClientRect().left,
+          y : this.touchPositions[0].y- this.element.getBoundingClientRect().top
         }
         endPoint = {
-          x : e.pageX - this.element.offsetLeft,
-          y : e.pageY - this.element.offsetTop
+          x : e.clientX - this.element.getBoundingClientRect().left,
+          y : e.clientY - this.element.getBoundingClientRect().top
         }
         this.drawLine(startPoint, endPoint);
         this.touchPositions = [{
-          x : e.pageX,
-          y : e.pageY
+          x : e.clientX,
+          y : e.clientY
         }]
       }
     }
