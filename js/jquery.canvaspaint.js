@@ -150,6 +150,15 @@ Canvaspaint.prototype = {
   },
 
   onMouseupEvent : function (el, e) {
+    startPoint = {
+      x : this.touchPositions[0].x - this.element.offsetLeft,
+      y : this.touchPositions[0].y- this.element.offsetTop
+    }
+    endPoint = {
+      x : this.touchPositions[0].x - this.element.offsetLeft - 1,
+      y : this.touchPositions[0].y - this.element.offsetTop
+    }
+    this.drawLine(startPoint, endPoint);
     this.drawing = false;
     this.touchPositions = [];
   },
