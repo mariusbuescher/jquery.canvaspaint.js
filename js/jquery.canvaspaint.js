@@ -69,10 +69,8 @@ Canvaspaint.prototype = {
 
   // helper functions
   drawLine : function (start, end) {
-    this.ctx.beginPath();
     this.ctx.moveTo(start.x, start.y);
     this.ctx.lineTo(end.x, end.y);
-    this.ctx.closePath();
     this.ctx.stroke();
   },
 
@@ -81,6 +79,7 @@ Canvaspaint.prototype = {
     e.preventDefault();
     this.drawing = true;
     this.touchPositions = []
+    this.ctx.beginPath();
     for (var i = 0; i < e.touches.length; i++) {
       this.touchPositions.push({
         x : e.touches.item(i).clientX,
@@ -101,12 +100,14 @@ Canvaspaint.prototype = {
       }
       this.drawLine(startPoint, endPoint);
     }
+    this.ctx.closePath();
     this.drawing = false;
     this.touchPositions = [];
   },
 
   onTouchcancelEvent : function (el, e) {
     this.drawing = false;
+    this.ctx.closePath();
     this.touchPositions = [];
   },
 
@@ -142,7 +143,7 @@ Canvaspaint.prototype = {
 
   onMousedownEvent : function (el, e) {
     this.drawing = true;
-
+    this.ctx.beginPath();
     this.touchPositions = [{
       x : e.clientX,
       y : e.clientY
@@ -160,6 +161,7 @@ Canvaspaint.prototype = {
     }
     this.drawLine(startPoint, endPoint);
     this.drawing = false;
+    this.ctx.closePath();
     this.touchPositions = [];
   },
 
@@ -185,6 +187,7 @@ Canvaspaint.prototype = {
 
   onMouseoutEvent : function (el, e) {
     this.drawing = false;
+    this.ctx.closePath();
     this.touchPositions = [];
   },
 
