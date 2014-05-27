@@ -11,6 +11,8 @@ if (jQuery !== undefined) {
           this.trigger('startLine.canvaspaint');
         } else if (e.type == 'canvaspaint.endLine') {
           this.trigger('endLine.canvaspaint');
+        } else if (e.type == 'canvaspaint.clear') {
+          this.trigger('clear.canvaspaint');
         }
       };
 
