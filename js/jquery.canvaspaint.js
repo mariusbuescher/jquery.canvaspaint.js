@@ -4,6 +4,16 @@ if (jQuery !== undefined) {
 
     $.fn.canvaspaint = function (method) {
 
+      var eventHandler = function (e) {
+        if (e.type == 'canvaspaint.drawLine') {
+          this.trigger('drawLine.canvaspaint', e.details);
+        } else if (e.type == 'canvaspaint.startLine') {
+          this.trigger('startLine.canvaspaint');
+        } else if (e.type == 'canvaspaint.endLine') {
+          this.trigger('endLine.canvaspaint');
+        }
+      };
+
       if (typeof method == 'object' || typeof method == 'undefined') {
         if (this.is('canvas')) {
           this.data('canvaspaint', new Canvaspaint(this.get(0)));
@@ -15,6 +25,9 @@ if (jQuery !== undefined) {
 
           this.data('canvaspaint', new Canvaspaint(canvas));
         }
+
+        this.data('canvaspaint').element.addEventListener('canvaspaint.drawLine', eventHandler.bind(this));
+
         return this;
       } else {
         return this.data('canvaspaint')[method].call(this.data('canvaspaint'), arguments[1]);
@@ -69,16 +82,29 @@ Canvaspaint.prototype = {
 
   // helper functions
   drawLine : function (start, end) {
+    var event = new CustomEvent('canvaspaint.drawLine');
+    event.details = {
+      start : start,
+      end : end
+    };
+    this.element.dispatchEvent(event);
+
     this.ctx.moveTo(start.x, start.y);
     this.ctx.lineTo(end.x, end.y);
     this.ctx.stroke();
   },
 
   startLine : function () {
+    var event = new CustomEvent('canvaspaint.startLine');
+    this.element.dispatchEvent(event);
+
     this.ctx.beginPath();
   },
 
   endLine : function () {
+    var event = new CustomEvent('canvaspaint.endLine');
+    this.element.dispatchEvent(event);
+
     this.ctx.closePath();
   },
 
