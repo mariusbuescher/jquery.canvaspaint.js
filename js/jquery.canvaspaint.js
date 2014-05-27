@@ -241,6 +241,9 @@ Canvaspaint.prototype = {
   },
 
   clear : function () {
+    var event = new CustomEvent('canvaspaint.clear');
+    this.element.dispatchEvent(event);
+
     this.ctx.clearRect(0, 0, this.element.width, this.element.height);
   },
 
