@@ -43,3 +43,25 @@ The API is triggered through the jQuery plugin:
 ````javascript
 $('#drawarea').canvaspaint('methodname', arguments);
 ````
+
+### Events
+
+There are three events you can listen to:
+
+- <code>startLine</code>, triggered when a line is started
+- <code>drawLine</code>, triggered when a line is drawn
+- <code>endLine</code>, when a line has ended
+
+When triggered jQuery style it is done like this:
+
+````javascript
+$('#drawarea').canvaspaint('drawLine.canvaspaint', function (e, data) {});
+````
+
+The <code>data</code> parameter contains the data that is passed in the event. The <code>canvaspaint</code> part of the event name is the namespace.
+
+When triggered directly, namespace and event name are ordered the other way. e.g. <code>canvaspaint.drawLine</code>.
+
+````javascript
+document.getElementById('drawarea').addEventListener('canvaspaint.drawLine', function (e) {});
+````
