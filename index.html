@@ -27,18 +27,51 @@
 		<a id="export" href="#">Export</a>
 		<a id="import" href="#">Import</a>
 	</p>
+	<p>
+		<a id="rec" href="#">Record</a>
+		<a id="stop" href="#">Stop</a>
+		<a id="play" href="#">Play</a>
+	</p>
 
 	<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery.canvaspaint.js"></script>
 
 	<script type="text/javascript" charset="utf-8">
+	var strokes;
 	$(document).ready(function () {
+
 		$('#drawarea').canvaspaint();
 		var imageData;
 
-		$('#drawarea').on('drawLine.canvaspaint', function (e, details) {
-			console.log(details);
-		});
+		var timerId;
+		var time = 0;
+		strokes = [];
+
+		var incrementTime = function (e) {
+			time += 20;
+		}
+
+		var recordLine = function (e, data) {
+			var value = {
+				start : data.start,
+				end : data.end,
+				time : time
+			};
+			strokes.push(value);
+		}
+
+		var drawLine = function (e) {
+
+			var lines = strokes.filter(function (obj) {
+				return (obj.time == time) ? true : false;
+			});
+
+			for (var i = 0; i < lines.length; i++) {
+				$('#drawarea').canvaspaint('drawLine', lines[i].start, lines[i].end);
+			}
+
+			time += 20;
+		}
 
 		$('#thick').click(function (e) {
 			e.preventDefault();
@@ -78,6 +111,29 @@
 		$('#import').click(function (e) {
 			e.preventDefault();
 			imageData = $('#drawarea').canvaspaint('setImageData', imageData);
+		});
+
+		$('#drawarea').on('drawLine.canvaspaint', recordLine);
+
+		$('#rec').click(function (e) {
+			e.preventDefault();
+			strokes = [];
+			time = 0;
+			timerId = window.setInterval(incrementTime, 20);
+		});
+
+		$('#stop').click(function (e) {
+			e.preventDefault();
+			$('#drawarea').canvaspaint('endLine');
+			window.clearInterval(timerId);
+		});
+
+		$('#play').click(function (e) {
+			e.preventDefault();
+			time = 0;
+			$('#drawarea').canvaspaint('clear');
+			$('#drawarea').canvaspaint('startLine');
+			timerId = window.setInterval(drawLine, 20);
 		});
 	});
 	</script>
