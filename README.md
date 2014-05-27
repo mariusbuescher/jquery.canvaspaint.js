@@ -22,7 +22,11 @@ $('#drawarea').canvaspaint();
 
 ## API
 
-There is an API for manipulating the strokes. You can:
+There is an API for manipulating strokes and catching events.
+
+### Methods
+
+There are Methods for manipulating the strokes. You can:
 
 - Set the color via method <code>setColor</code>
 - Set stroke width with <code>setLineWidth</code>
@@ -30,6 +34,9 @@ There is an API for manipulating the strokes. You can:
 - Toggle the eraser with <code>setEraser</code> method
 - Save the image content via method <code>getImageData</code>
 - Restore image using method <code>setImageData</code>
+- Start path with <code>startLine</code>
+- End path with <code>endLine</code>
+- Draw a line using <code>drawLine</code> with start and end point ech containing x and y value
 
 The API is triggered through the jQuery plugin:
 
