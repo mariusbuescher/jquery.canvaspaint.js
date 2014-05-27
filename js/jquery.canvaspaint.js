@@ -32,7 +32,7 @@ if (jQuery !== undefined) {
 
         return this;
       } else {
-        return this.data('canvaspaint')[method].call(this.data('canvaspaint'), arguments[1]);
+        return this.data('canvaspaint')[method].call(this.data('canvaspaint'), arguments[1], arguments[2]);
       }
 
     };
