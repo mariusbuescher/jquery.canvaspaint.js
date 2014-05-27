@@ -10,11 +10,15 @@ This is a jQuery Plugin for multitouch canvas painting on tablet computers. What
 
 Just import the library:
 
-    <script type="text/javascript" charset="utf-8" src="path/to/js/folder/jquery.canvaspaint.js"></script>
+````html
+<script type="text/javascript" charset="utf-8" src="path/to/js/folder/jquery.canvaspaint.js"></script>
+````
 
 Then simply use it as a jQuery plugin in your scripts as you need it:
 
-    $('#drawarea').canvaspaint();
+````javascript
+$('#drawarea').canvaspaint();
+````
 
 ## API
 
@@ -29,4 +33,6 @@ There is an API for manipulating the strokes. You can:
 
 The API is triggered through the jQuery plugin:
 
-    $('#drawarea').canvaspaint('methodname', arguments);
+````javascript
+$('#drawarea').canvaspaint('methodname', arguments);
+````
