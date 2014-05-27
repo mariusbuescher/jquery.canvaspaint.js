@@ -51,6 +51,7 @@ There are three events you can listen to:
 - <code>startLine</code>, triggered when a line is started
 - <code>drawLine</code>, triggered when a line is drawn
 - <code>endLine</code>, when a line has ended
+- <code>clear</code>, when the drawing area was cleared
 
 When triggered jQuery style it is done like this:
 
