@@ -1,5 +1,7 @@
 class Canvaspaint
 
+  drawing: false
+
   constructor : (@element) ->
 
     # get canvas context
