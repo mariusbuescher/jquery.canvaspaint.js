@@ -1,6 +1,9 @@
 class Canvaspaint
 
-  drawing: false
+  drawing        : false
+  ctx            : null
+  element        : null
+  touchPositions : []
 
   constructor : (@element) ->
 
