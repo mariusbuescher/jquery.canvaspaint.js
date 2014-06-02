@@ -102,7 +102,7 @@ class Canvaspaint
     if @drawing is true
       changed = false
       for touch, i in @touchPositions
-        if (touch.x - e.touches.item(i).clientX) is not 0 or (touch.y - e.touches.item(i).clientY) is not 0
+        if (touch.x - e.touches.item(i).clientX) isnt 0 or (touch.y - e.touches.item(i).clientY) isnt 0
           startPoint = {
             x : touch.x - @element.getBoundingClientRect().left,
             y : touch.y- @element.getBoundingClientRect().top
@@ -149,7 +149,8 @@ class Canvaspaint
 
   onMousemoveEvent : (el, e) ->
     if @drawing is true
-      if (@touchPositions[0].x - e.clientX) is not 0 or (@touchPositions[0].y - e.clientY) is not 0
+      if (@touchPositions[0].x - e.clientX) isnt 0 or (@touchPositions[0].y - e.clientY) isnt 0
+        console.log('draw')
         startPoint = {
           x : @touchPositions[0].x - @element.getBoundingClientRect().left,
           y : @touchPositions[0].y- @element.getBoundingClientRect().top
