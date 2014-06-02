@@ -1,0 +1,11 @@
+{
+  "name" : "jQuery-canvaspaint",
+  "description" : "A small library for multitouch paint applications using the HTML5 canvas element.",
+  "version" : "0.2.1",
+  "devDependencies" : {
+    "grunt"                : "0.4.x",
+    "grunt-contrib-watch"  : "0.6.x",
+    "grunt-contrib-uglify" : "0.4.x",
+    "grunt-contrib-coffee" : "0.10.x"
+  }
+}
